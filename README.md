@@ -75,5 +75,8 @@ Password - Admin@123#
 
 ## Support
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9f34ab89f83c40f83f50e12c98d523404cc3302f
 
