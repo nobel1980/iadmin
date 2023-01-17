@@ -38,6 +38,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('roles')->paginate(10);
+        
         return view('users.index', ['users' => $users]);
     }
     
@@ -57,15 +58,14 @@ class UserController extends Controller
      * Store User
      * @param Request $request
      * @return View Users
-     * @author Shani Singh
      */
     public function store(Request $request)
     {
         // Validations
         $request->validate([
-            'first_name'    => 'required',
+            'name'    => 'required',
             'last_name'     => 'required',
-            'email'         => 'required|unique:users,email',
+            'email' => 'email|unique:users',
             'mobile_number' => 'required|numeric|digits:11',
             'role_id'       =>  'required|exists:roles,id',
             'status'       =>  'required|numeric|in:0,1',
@@ -82,7 +82,8 @@ class UserController extends Controller
                 'mobile_number' => $request->mobile_number,
                 'role_id'       => $request->role_id,
                 'status'        => $request->status,
-                'password'      => Hash::make($request->first_name.'@'.$request->mobile_number)
+                //'password'      => Hash::make($request->first_name.'@'.$request->mobile_number)
+                'password'      => Hash::make($request->$request->mobile_number)
             ]);
 
             // Delete Any Existing Role
