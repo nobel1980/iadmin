@@ -61,29 +61,33 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // Validations
+
+        //Validations
         $request->validate([
             'name'    => 'required',
-            'last_name'     => 'required',
-            'email' => 'email|unique:users',
+            'std_no' => 'required',
+            'email' => '',
             'mobile_number' => 'required|numeric|digits:11',
             'role_id'       =>  'required|exists:roles,id',
             'status'       =>  'required|numeric|in:0,1',
         ]);
 
+
         DB::beginTransaction();
         try {
 
+            // dd($request);
+            // exit();
             // Store Data
             $user = User::create([
-                'first_name'    => $request->first_name,
-                'last_name'     => $request->last_name,
+                'name'          => $request->name,
+                'std_no'        => $request->std_no,
                 'email'         => $request->email,
                 'mobile_number' => $request->mobile_number,
                 'role_id'       => $request->role_id,
                 'status'        => $request->status,
                 //'password'      => Hash::make($request->first_name.'@'.$request->mobile_number)
-                'password'      => Hash::make($request->$request->mobile_number)
+                'password'      => Hash::make('123456')
             ]);
 
             // Delete Any Existing Role
@@ -164,9 +168,10 @@ class UserController extends Controller
     {
         // Validations
         $request->validate([
-            'first_name'    => 'required',
-            'last_name'     => 'required',
-            'email'         => 'required|unique:users,email,'.$user->id.',id',
+            'name'    => 'required',
+            'std_no' => 'required',
+            'email'         => '',
+            //'email'         => 'required|unique:users,email,'.$user->id.',id',
             'mobile_number' => 'required|numeric|digits:11',
             'role_id'       =>  'required|exists:roles,id',
             'status'       =>  'required|numeric|in:0,1',
@@ -177,8 +182,7 @@ class UserController extends Controller
 
             // Store Data
             $user_updated = User::whereId($user->id)->update([
-                'first_name'    => $request->first_name,
-                'last_name'     => $request->last_name,
+                'name'     => $request->name,
                 'email'         => $request->email,
                 'mobile_number' => $request->mobile_number,
                 'role_id'       => $request->role_id,
@@ -209,6 +213,8 @@ class UserController extends Controller
      */
     public function delete(User $user)
     {
+        dd($user->id);
+        exit();
         DB::beginTransaction();
         try {
             // Delete User

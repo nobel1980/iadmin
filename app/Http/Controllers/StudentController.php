@@ -1,24 +1,51 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Resources\ApiResource;
 
 class StudentController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index']]);
+        $this->middleware('permission:user-create', ['only' => ['create','store', 'updateStatus']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:user-delete', ['only' => ['delete']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {  
         $students = Student::all();
-        return response([ 'students' => ApiResource::collection($students), 'message' => 'Retrieved successfully'], 200);
+
+        // dd($students);
+        // exit();
+        
+        return view('students.index', ['students' => $students]);
+    }
+
+    /**
+     * Create Student 
+     * @param Nill
+     * @return Array $student
+     */
+    public function create()
+    {       
+        return view('students.add');
     }
 
     /**
@@ -38,6 +65,7 @@ class StudentController extends Controller
             'batch' => 'required',
             'gender' => 'required',
             'address' => 'required',
+            'status' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -85,23 +113,5 @@ class StudentController extends Controller
         $Student->delete();
 
         return response(['message' => 'Deleted']);
-    }
-
-     /*
-     @student information
-     @ 
-    */
-    public function student_info(Request $request)
-    {
-
-        $stdNo = $request->all();   
-        $student = Student::wherestdNo($stdNo)->first(); 
-        
-        if (!($student)) {
-            return response(['message' => 'Student does not exist'], 400);
-           }        
-   
-        $student = json_decode( json_encode($student), true);
-        return response(['std_info' => $student], 200);       
     }
 }

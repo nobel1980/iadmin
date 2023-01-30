@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Users')
+@section('title', 'Add Students')
 
 @section('content')
 
@@ -8,8 +8,8 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Add Users</h1>
-        <a href="{{route('users.index')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+        <h1 class="h3 mb-0 text-gray-800">Add Students</h1>
+        <a href="{{route('students.index')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
     </div>
 
@@ -19,30 +19,13 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Add New User</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Add New Student</h6>
         </div>
-        <form method="POST" action="{{route('users.store')}}">
+        <form method="POST" action="{{route('students.store')}}">
             @csrf
             <div class="card-body">
                 <div class="form-group row">
-
-                    {{-- Gr Name --}}
-                    <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                        <span style="color:red;">*</span>Guardian Name</label>
-                        <input 
-                            type="text" 
-                            class="form-control form-control-user @error('name') is-invalid @enderror" 
-                            id="guardianName"
-                            placeholder="Guardian Name" 
-                            name="name" 
-                            value="{{ old('name') }}">
-
-                        @error('name')
-                            <span class="text-danger">{{$message}}</span>
-                        @enderror
-                    </div>
-
-                    {{-- Student Id --}}
+                  {{-- Student Id --}}
                     <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
                         <span style="color:red;">*</span>Student Id</label>
                         <input 
@@ -57,49 +40,65 @@
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
+                    {{-- Student Name --}}
+                    <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+                        <span style="color:red;">*</span>Student Name</label>
+                        <input 
+                            type="text" 
+                            class="form-control form-control-user @error('name') is-invalid @enderror" 
+                            id="studentName"
+                            placeholder="Student Name" 
+                            name="name" 
+                            value="{{ old('name') }}">
+
+                        @error('name')
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
 
                     {{-- Email --}}
                     <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                        <span style="color:red;">*</span>Email</label>
+                        <span style="color:red;">*</span>Class</label>
                         <input 
-                            type="email" 
-                            class="form-control form-control-user @error('email') is-invalid @enderror" 
-                            id="exampleEmail"
-                            placeholder="Email" 
-                            name="email" 
-                            value="{{ old('email') }}">
+                            type="class" 
+                            class="form-control form-control-user @error('class') is-invalid @enderror" 
+                            id="class"
+                            placeholder="class" 
+                            name="class" 
+                            value="{{ old('class') }}">
 
-                        @error('email')
+                        @error('class')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
 
-                    {{-- Mobile Number --}}
+                    {{-- Subject --}}
                     <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                        <span style="color:red;">*</span>Mobile Number</label>
+                        <span style="color:red;">*</span>Subject</label>
                         <input 
                             type="text" 
-                            class="form-control form-control-user @error('mobile_number') is-invalid @enderror" 
-                            id="exampleMobile"
-                            placeholder="Mobile Number" 
-                            name="mobile_number" 
-                            value="{{ old('mobile_number') }}">
+                            class="form-control form-control-user @error('subject') is-invalid @enderror" 
+                            id="subject"
+                            placeholder="Subject" 
+                            name="subject" 
+                            value="{{ old('subject') }}">
 
-                        @error('mobile_number')
+                        @error('subject')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
 
-                    {{-- Role --}}
+                    {{-- Group --}}
                     <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                        <span style="color:red;">*</span>Role</label>
-                        <select class="form-control form-control-user @error('role_id') is-invalid @enderror" name="role_id">
-                            <option selected disabled>Select Role</option>
-                            @foreach ($roles as $role)
-                                <option value="{{$role->id}}">{{$role->name}}</option>
-                            @endforeach
+                        <span style="color:red;">*</span>Group</label>
+                        <select class="form-control form-control-user @error('group') is-invalid @enderror" name="group">
+                            <option selected disabled>Select Group</option>
+                            <option value="A" selected>A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
                         </select>
-                        @error('role_id')
+
+                        @error('group')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>

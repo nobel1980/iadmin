@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -53,5 +54,16 @@ Route::middleware('auth')->prefix('users')->name('users.')->group(function(){
 
     Route::get('export/', [UserController::class, 'export'])->name('export');
 
+});
+
+// Students 
+Route::middleware('auth')->prefix('students')->name('students.')->group(function(){
+    Route::get('/', [StudentController::class, 'index'])->name('index');
+    Route::get('/create', [StudentController::class, 'create'])->name('create');
+    Route::post('/store', [StudentController::class, 'store'])->name('store');
+    Route::get('/edit/{student}', [StudentController::class, 'edit'])->name('edit');
+    Route::put('/update/{student}', [StudentController::class, 'update'])->name('update');
+    Route::delete('/delete/{student}', [StudentController::class, 'delete'])->name('destroy');
+    Route::get('/update/status/{student_id}/{status}', [StudentController::class, 'updateStatus'])->name('status');
 });
 

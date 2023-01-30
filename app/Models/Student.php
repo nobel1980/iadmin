@@ -19,6 +19,7 @@ class Student extends Model
         'class',
         'subject',
         'batch',
+        'std_no',
         'gender',
         'address',
     ];

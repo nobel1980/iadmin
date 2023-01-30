@@ -28,7 +28,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $data = DB::select("SELECT 
+                          (SELECT COUNT(*) FROM users WHERE status = 1) as user_count, 
+                          (SELECT COUNT(*) FROM students WHERE status = 1) as student_count"
+                          );   
+
+        // dd($data);
+        // exit(); 
+        return view('home', ['data' => $data]);
+        //return view('home');
     }
 
     /**

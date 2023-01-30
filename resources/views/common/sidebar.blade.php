@@ -28,17 +28,32 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDown"
-            aria-expanded="true" aria-controls="taTpDropDown">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#userManagement"
+            aria-expanded="true" aria-controls="userManagement">
             <i class="fas fa-user-alt"></i>
             <span>User Management</span>
         </a>
-        <div id="taTpDropDown" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="userManagement" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">User Management:</h6>
                 <a class="collapse-item" href="{{ route('users.index') }}">List</a>
                 <a class="collapse-item" href="{{ route('users.create') }}">Add New</a>
                 <a class="collapse-item" href="{{ route('users.import') }}">Import Data</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#studentManamgent"
+            aria-expanded="true" aria-controls="studentManamgent">
+            <i class="fas fa-user-alt"></i>
+            <span>Student Management</span>
+        </a>
+        <div id="studentManamgent" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Student Management:</h6>
+                <a class="collapse-item" href="{{ route('students.index') }}">List</a>
+                <a class="collapse-item" href="{{ route('students.create') }}">Add New</a>                
             </div>
         </div>
     </li>
